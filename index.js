@@ -1,6 +1,3 @@
-//  ./app.js
-
-
 import express from 'express'
 import routes from './routes/index.js'
 
@@ -10,6 +7,7 @@ const port = 3000
 // import { db } from './config/firebase.js'
 // import { collection, addDoc } from "firebase/firestore";
 
+
 // Middleware
 app.use(express.json())
 
@@ -17,14 +15,14 @@ app.use(express.json())
 app.use('/api', routes)
 
 // Web
-app.get('/', (req, res) => {
-    res.send('hello World')
+app.get('/', async (req, res) => {
+    res.send('Estamos usando o endpoint /api')
 })
 
 app.listen(port, () => {
     console.log(`
-        Server is running on
-        http://localhost:${port}`)
+    Server is running on
+    http://localhost:${port}`)
 })
 
 export default app
