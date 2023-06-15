@@ -1,5 +1,5 @@
 import db from '../config/firebase.js'
-import { collection, getDocs } from 'firebase/firestore'
+import { doc, collection, getDocs, getDoc } from 'firebase/firestore'
 
 class Movie {
     constructor(id, title, director, year, genres, rate) {
@@ -12,9 +12,11 @@ class Movie {
     }
 }
 
+// Reference to collection in the database
+const moviesCollection = collection(db, "movies")
+
 async function getData() {
-    const moviesRef = collection(db, "movies")
-    const collectionSnapshot = await getDocs(moviesRef)
+    const collectionSnapshot = await getDocs(moviesCollection)
 
     const movies = []
 
@@ -31,9 +33,24 @@ async function getData() {
     return movies
 }
 
+async function getDataById(movieId) {
+    const movieRef = doc(moviesCollection, movieId)
+    const movieSnapshot = await getDoc(movieRef)
+
+    if (!movieSnapshot.exists()) {
+        console.log(`Document ${movieId} not founded `)
+        return null
+    }
+
+    console.log(`Movie Snapshot >>>${movieSnapshot.data()}`)
+    return movieSnapshot.data()
+
+}
+
 const movieModel = {
     Movie,
-    getData
+    getData,
+    getDataById
 }
 
 export default movieModel

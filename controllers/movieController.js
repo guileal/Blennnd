@@ -5,6 +5,12 @@ const movieController = {
         const movies = await movieModel.getData()
         console.log(movies)
         return res.json(movies)
+    },
+
+    async getMovieById(req, res) {
+        const movieId = req.params.id
+        const movie = await movieModel.getDataById(movieId)
+        return res.json(movie)
     }
 }
 

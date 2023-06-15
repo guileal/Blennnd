@@ -8,6 +8,8 @@ const movieRouter = express.Router()
 
 // READ
 movieRouter.get('/', movieController.getAllMovies)
+
+movieRouter.get('/:id', movieController.getMovieById)
 // movieRouter.get('/:id', callbackfn)
 
 // UPDATE
